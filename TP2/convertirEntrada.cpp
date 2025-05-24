@@ -121,7 +121,7 @@ std::tuple<int, std::vector<int>, std::string, std::vector<int>> procesarEntrada
 
     // Lista de algoritmos válidos
     const std::vector<std::string> algoritmos_validos = {
-        "FIFO", "SecondChance", "NRU", "LRU", "Clock", "LFU", "MFU"
+        "FIFO", "Second_Chance", "NRU", "LRU", "Clock", "LFU", "MFU"
     };
     
     // Verificar si el algoritmo es válido
