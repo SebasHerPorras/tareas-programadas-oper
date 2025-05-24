@@ -4,7 +4,7 @@
 
 #include "includes.hpp"
 
-void Clock();
+void Clock(const std::vector<int>& references, int frames, const std::vector<int>& initial_state);
 
 
 #endif
