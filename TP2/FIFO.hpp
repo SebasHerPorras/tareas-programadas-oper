@@ -3,6 +3,6 @@
 
 #include "includes.hpp"
 
-void FIFO();
+void FIFO(const std::vector<int>& references, int frames, const std::vector<int>& initial_state);
 
 #endif // FIFO_HPP
