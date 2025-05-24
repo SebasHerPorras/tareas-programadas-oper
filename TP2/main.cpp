@@ -1,21 +1,91 @@
+#include "convertirEntrada.hpp"
 #include "FIFO.hpp"
-#include "LFU.hpp"
+#include "Second_Chance.hpp"
+#include "NRU.hpp"
 #include "LRU.hpp"
 #include "Clock.hpp"
+#include "LFU.hpp"
 #include "MFU.hpp"
-#include "NRU.hpp"
-#include "Second_Chance.hpp"
-#include "includes.hpp"
 
+#include <fstream>
+#include <iostream>
+#include <memory>
 
-int main(int argc, char *argv[]) {
-  FIFO();
-  LFU();
-  LRU();
-  Clock();
-  MFU();
-  NRU();
-  Second_Chance();
+void castArguments(int argc, char* argv[]);
 
+std::string archivo;
+
+int main(int argc, char* argv[]) {
+    castArguments(argc, argv);
+
+    std::ifstream file("tests/" + archivo);
+    if (!file.is_open()) {
+        std::cerr << "Error: No se pudo abrir el archivo " << archivo << std::endl;
+        return 1;
+    }
+
+    std::string entrada;
+    while (std::getline(file, entrada)) {
+        try {
+            // Procesar cada línea del archivo
+            std::cout << "\nEntrada: " << entrada << std::endl;
+            
+            auto [frames, initial_state, algorithm, references] = procesarEntrada(entrada);
+
+            // Mostrar información procesada
+            std::cout << "Frames: " << frames << std::endl;
+            
+            std::cout << "Estado inicial: ";
+            for (int page : initial_state) {
+                std::cout << page << " ";
+            }
+            std::cout << std::endl;
+            
+            std::cout << "Algoritmo: " << algorithm << std::endl;
+            
+            std::cout << "Referencias: ";
+            for (int ref : references) {
+                if (ref < 0) {
+                    std::cout << -ref << "* ";
+                } else {
+                    std::cout << ref << " ";
+                }
+            }
+            std::cout << std::endl;
+
+            // Ejecutar el algoritmo correspondiente
+            
+            if (algorithm == "FIFO") {
+                 FIFO(references, frames, initial_state);
+            } else if (algorithm == "Second_Chance") {
+                 Second_Chance(references, frames, initial_state);
+            } else if (algorithm == "NRU") {
+                 NRU(references, frames, initial_state);
+            } else if (algorithm == "LRU") {
+                 LRU(references, frames, initial_state);
+            } else if (algorithm == "Clock") {
+                 Clock(references, frames, initial_state);
+            } else if (algorithm == "LFU") {
+                 LFU(references, frames, initial_state);
+            } else if (algorithm == "MFU") {
+                 MFU(references, frames, initial_state);
+            } else {
+                std::cerr << "Error: Algoritmo desconocido " << algorithm << std::endl;
+                continue;
+            }
+
+        } catch (const std::exception& e) {
+            std::cerr << "Error procesando entrada: " << e.what() << std::endl;
+        }
+    }
+    
     return 0;
+}
+
+void castArguments(int argc, char* argv[]) {
+    if (argc > 1) {
+        archivo = argv[1];
+    } else {
+        archivo = "prueba_1.txt";
+    }
 }
