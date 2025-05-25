@@ -11,7 +11,7 @@
 #define MAGENTA "\033[35m"
 #define RESET   "\033[0m"
 
-void Second_Chance(const std::vector<int>& referencias, int marcos, const std::vector<int>& estado_inicial) {
+int Second_Chance(const std::vector<int>& referencias, int marcos, const std::vector<int>& estado_inicial) {
     std::queue<int> cola_paginas;                       // Orden de llegada
     std::unordered_map<int, bool> bit_referencia;      // Bit R por página
     std::unordered_map<int, bool> bit_modificado;      // Bit M por página
@@ -97,6 +97,6 @@ void Second_Chance(const std::vector<int>& referencias, int marcos, const std::v
 
         print_memoria();
     }
-
     std::cout << RED << "[SC] Total de fallos de página: " << page_faults << RESET << std::endl;
+    return page_faults;
 }

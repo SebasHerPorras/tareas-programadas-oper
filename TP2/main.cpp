@@ -14,7 +14,7 @@
 void castArguments(int argc, char* argv[]);
 
 std::string archivo;
-
+std::vector<std::pair<std::string, int>> resultados;
 int main(int argc, char* argv[]) {
     castArguments(argc, argv);
 
@@ -56,19 +56,19 @@ int main(int argc, char* argv[]) {
             // Ejecutar el algoritmo correspondiente
             
             if (algorithm == "FIFO") {
-                 FIFO(references, frames, initial_state);
+                resultados.push_back({"FIFO", FIFO(references, frames, initial_state)});
             } else if (algorithm == "Second_Chance") {
-                 Second_Chance(references, frames, initial_state);
+                resultados.push_back({"Second_Chance", Second_Chance(references, frames, initial_state)});
             } else if (algorithm == "NRU") {
-                 NRU(references, frames, initial_state);
+                resultados.push_back({"NRU", NRU(references, frames, initial_state)});
             } else if (algorithm == "LRU") {
-                 LRU(references, frames, initial_state);
+                resultados.push_back({"LRU", LRU(references, frames, initial_state)});
             } else if (algorithm == "Clock") {
-                 Clock(references, frames, initial_state);
+                    resultados.push_back({"Clock", Clock(references, frames, initial_state)});
             } else if (algorithm == "LFU") {
-                 LFU(references, frames, initial_state);
+                resultados.push_back({"LFU", LFU(references, frames, initial_state)});
             } else if (algorithm == "MFU") {
-                 MFU(references, frames, initial_state);
+                resultados.push_back({"MFU", MFU(references, frames, initial_state)});
             } else {
                 std::cerr << "Error: Algoritmo desconocido " << algorithm << std::endl;
                 continue;
@@ -78,7 +78,15 @@ int main(int argc, char* argv[]) {
             std::cerr << "Error procesando entrada: " << e.what() << std::endl;
         }
     }
-    
+    // Ordenar de menor a mayor fallos
+    std::sort(resultados.begin(), resultados.end(), [](auto& a, auto& b) {
+    return a.second < b.second;
+    });
+    // Imprimimos los resultados
+    std::cout << "\nRanking de algoritmos (menor cantidad de fallos):\n";
+    for (auto& [nombre, fallos] : resultados) {
+        std::cout << nombre << ": " << fallos << " fallos de página\n";
+    }
     return 0;
 }
 

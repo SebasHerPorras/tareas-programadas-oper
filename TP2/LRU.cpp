@@ -11,7 +11,7 @@
 #define MAGENTA "\033[35m"
 #define RESET   "\033[0m"
 
-void LRU(const std::vector<int>& references, int frames, const std::vector<int>& initial_state) {
+int LRU(const std::vector<int>& references, int frames, const std::vector<int>& initial_state) {
     std::list<int> page_list;                             // Lista de uso reciente (MRU al frente, LRU al final)
     std::unordered_map<int, std::list<int>::iterator> page_map;  // Mapa para acceso O(1) a posiciones en la lista
     std::unordered_set<int> memory;                       // Páginas en memoria
@@ -92,4 +92,5 @@ void LRU(const std::vector<int>& references, int frames, const std::vector<int>&
     }
 
     std::cout << RED << "[LRU] Total de fallos de página: " << page_faults << RESET << std::endl;
+    return page_faults;
 }

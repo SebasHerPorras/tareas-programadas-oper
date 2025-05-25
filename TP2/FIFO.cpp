@@ -12,7 +12,7 @@
 #define MAGENTA "\033[35m"
 #define RESET   "\033[0m"
 
-void FIFO(const std::vector<int>& references, int frames, const std::vector<int>& initial_state) {
+int FIFO(const std::vector<int>& references, int frames, const std::vector<int>& initial_state) {
     std::unordered_set<int> memory;          // Páginas actualmente en memoria
     std::queue<int> page_queue;              // Cola para orden FIFO
     int page_faults = 0;                     // Contador de fallos de página
@@ -80,4 +80,5 @@ void FIFO(const std::vector<int>& references, int frames, const std::vector<int>
     }
 
     std::cout << RED << "[FIFO] Total de fallos de página: " << page_faults << RESET << std::endl;
+    return page_faults;
 }
