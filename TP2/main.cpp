@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
     while (std::getline(file, entrada)) {
         try {
             // Procesar cada línea del archivo
-            std::cout << "\nEntrada: " << entrada << std::endl;
+            std::cout << "\n\nEntrada: " << entrada << std::endl;
             
             auto [frames, initial_state, algorithm, references] = procesarEntrada(entrada);
 
