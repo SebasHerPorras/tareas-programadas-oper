@@ -4,13 +4,18 @@
 #include "FirstComeFirstServe.hpp"
 #include "ShortestJob.hpp"
 #include "RoundRobin.hpp"
-// #include "Priority.hpp"
+#include "Priority.hpp"
 
 #include <fstream>
 #include <iostream>
 #include <vector>
 #include <string>
 #include <algorithm>
+
+struct ResultadoAlgoritmo {
+  std::string nombreAlgoritmo;
+  Metricas metricas;
+};
 
 int main(int argc, char* argv[]) {
   std::string archivo = (argc > 1) ? argv[1] : "prueba_1.txt";
@@ -21,7 +26,7 @@ int main(int argc, char* argv[]) {
   }
 
   std::string entrada;
-  std::vector<Metricas> metricas_por_algoritmo;
+  std::vector<ResultadoAlgoritmo> metricas_por_algoritmo;
   while (std::getline(file, entrada)) {
     try {
       std::vector<std::string> partes = dividirEntrada(entrada, '|');
@@ -58,24 +63,24 @@ int main(int argc, char* argv[]) {
       // // Ejecutar el algoritmo correspondiente
       if (algoritmo == "FCFS" || algoritmo == "FirstComeFirstServed") {
         Metricas fcfs = FCFS(procesos);
-        metricas_por_algoritmo.push_back(fcfs);
+        metricas_por_algoritmo.push_back({"First Come First Serve", fcfs});
       } else if (algoritmo == "SJF" || algoritmo == "ShortestJobFirst") {
         Metricas sjf = SJF(procesos);
-        metricas_por_algoritmo.push_back(sjf);
+        metricas_por_algoritmo.push_back({"Shortest Job First", sjf});
       } else if (algoritmo == "RoundRobin") {
         Metricas roundrobin = RoundRobin(procesos, 2);
-        metricas_por_algoritmo.push_back(roundrobin);
+        metricas_por_algoritmo.push_back({"Round Robin", roundrobin});
+      } else if (algoritmo == "Priority") {
+        Metricas prio = Priority(procesos);
+        metricas_por_algoritmo.push_back({"Priority", prio});
+      } else if (algoritmo == "all") {
+        Metricas fcfs = FCFS(procesos);
+        Metricas sjf = SJF(procesos);
+        Metricas rr = RoundRobin(procesos, 2);
+        Metricas prio = Priority(procesos);
+      } else {
+        std::cerr << "Algoritmo no reconocido: " << algoritmo << std::endl;
       }
-      // } else if (algoritmo == "Priority") {
-      //   int prio = Priority(procesos);
-      // } else if (algoritmo == "all") {
-      //   int fcfs = FCFS(procesos);
-      //   int sjf = SJF(procesos);
-      //   int rr = RoundRobin(procesos, 2);
-      //   int prio = Priority(procesos);
-      // } else {
-      //   std::cerr << "Algoritmo no reconocido: " << algoritmo << std::endl;
-      // }
     } catch (const std::exception& e) {
       std::cerr << "Error procesando la entrada: " << e.what() << std::endl;
     }
@@ -84,8 +89,8 @@ int main(int argc, char* argv[]) {
   std::cout << "\nProcesamiento completado." << std::endl;
   // Imprimir métricas de todos los algoritmos
   for (const auto& metricas : metricas_por_algoritmo) {
-    std::cout << "\nMétricas del algoritmo:" << std::endl;
-    imprimir_metricas(metricas);
+    std::cout << "\nMétricas del algoritmo: " << metricas.nombreAlgoritmo << std::endl;
+    imprimir_metricas(metricas.metricas);
     std::cout << std::endl;
   }
   std::cout << "\nFin del programa." << std::endl;
