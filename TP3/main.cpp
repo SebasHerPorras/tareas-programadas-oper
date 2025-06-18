@@ -1,8 +1,8 @@
 #include "convertirEntrada.hpp"
 #include "Proceso.hpp"
 #include "includes.hpp"
-// #include "FirstComeFirstServe.hpp"
-// #include "ShortestJob.hpp"
+#include "FirstComeFirstServe.hpp"
+#include "ShortestJob.hpp"
 // #include "RoundRobin.hpp"
 // #include "Priority.hpp"
 
@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
   }
 
   std::string entrada;
+  std::vector<Metricas> metricas_por_algoritmo;
   while (std::getline(file, entrada)) {
     try {
       std::vector<std::string> partes = dividirEntrada(entrada, '|');
@@ -55,10 +56,13 @@ int main(int argc, char* argv[]) {
       }
 
       // // Ejecutar el algoritmo correspondiente
-      // if (algoritmo == "FCFS" || algoritmo == "FirstComeFirstServed") {
-      //   int fcfs = FCFS(procesos);
-      // } else if (algoritmo == "SJF" || algoritmo == "ShortestJobFirst") {
-      //   int sjf = SJF(procesos);
+      if (algoritmo == "FCFS" || algoritmo == "FirstComeFirstServed") {
+        Metricas fcfs = FCFS(procesos);
+        metricas_por_algoritmo.push_back(fcfs);
+      } else if (algoritmo == "SJF" || algoritmo == "ShortestJobFirst") {
+        Metricas sjf = SJF(procesos);
+        metricas_por_algoritmo.push_back(sjf);
+      }
       // } else if (algoritmo == "RoundRobin") {
       //   int rr = RoundRobin(procesos, 2);
       // } else if (algoritmo == "Priority") {
@@ -75,5 +79,16 @@ int main(int argc, char* argv[]) {
       std::cerr << "Error procesando la entrada: " << e.what() << std::endl;
     }
   }
+  file.close();
+  std::cout << "\nProcesamiento completado." << std::endl;
+  // Imprimir métricas de todos los algoritmos
+  for (const auto& metricas : metricas_por_algoritmo) {
+    std::cout << "\nMétricas del algoritmo:" << std::endl;
+    imprimir_metricas(metricas);
+    std::cout << std::endl;
+  }
+  std::cout << "\nFin del programa." << std::endl;
+
+
   return 0;
 }

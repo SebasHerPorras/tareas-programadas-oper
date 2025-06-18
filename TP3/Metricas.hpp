@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include <iostream>
+
 struct Metricas {
   std::vector<double> throughput_por_proceso;
   double throughput_promedio;
@@ -11,5 +13,7 @@ struct Metricas {
   std::vector<double> waiting_por_proceso;
   double waiting_promedio;
 };
+
+void imprimir_metricas(const Metricas& m);
 
 #endif // METRICAS_HPP
