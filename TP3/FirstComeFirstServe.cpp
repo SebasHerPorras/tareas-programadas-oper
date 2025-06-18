@@ -2,7 +2,7 @@
 
 Metricas FCFS(std::vector<Proceso>& procesos) {
     Metricas metricas;
-    int n = procesos.size();
+    int cantidad_procesos = procesos.size();
     
     // Ordenar procesos por tiempo de llegada (FCFS)
     std::sort(procesos.begin(), procesos.end(), 
@@ -31,15 +31,15 @@ Metricas FCFS(std::vector<Proceso>& procesos) {
     
     // Calcular promedios
     double sum_waiting = 0, sum_turnaround = 0, sum_throughput = 0;
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < cantidad_procesos; ++i) {
         sum_waiting += metricas.waiting_por_proceso[i];
         sum_turnaround += metricas.turnaround_por_proceso[i];
         sum_throughput += metricas.throughput_por_proceso[i];
     }
     
-    metricas.waiting_promedio = sum_waiting / n;
-    metricas.turnaround_promedio = sum_turnaround / n;
-    metricas.throughput_promedio = sum_throughput / n;
+    metricas.waiting_promedio = sum_waiting / cantidad_procesos;
+    metricas.turnaround_promedio = sum_turnaround / cantidad_procesos;
+    metricas.throughput_promedio = sum_throughput / cantidad_procesos;
     
     return metricas;
 }

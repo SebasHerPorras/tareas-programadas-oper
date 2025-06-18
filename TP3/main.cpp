@@ -5,6 +5,7 @@
 #include "ShortestJob.hpp"
 #include "RoundRobin.hpp"
 #include "Priority.hpp"
+#include "MultilevelFeedback.hpp"
 
 #include <fstream>
 #include <iostream>
@@ -73,6 +74,9 @@ int main(int argc, char* argv[]) {
       } else if (algoritmo == "Priority") {
         Metricas prio = Priority(procesos);
         metricas_por_algoritmo.push_back({"Priority", prio});
+      } else if (algoritmo == "MLFQ" || algoritmo == "MultilevelFeedback") {
+        Metricas mlfq = MLFQ(procesos);
+        metricas_por_algoritmo.push_back({"Multilevel Feedback Queue", mlfq});
       } else if (algoritmo == "all") {
         Metricas fcfs = FCFS(procesos);
         Metricas sjf = SJF(procesos);

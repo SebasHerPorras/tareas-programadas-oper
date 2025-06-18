@@ -5,10 +5,10 @@
 // Asume que cada Proceso tiene un ID único
 Metricas SJF(std::vector<Proceso>& procesos) {
     Metricas metricas;
-    int n = procesos.size();
+    int cantidad_procesos = procesos.size();
 
     // Asegurar que cada proceso tiene su ID correspondiente
-    for (int i = 0; i < n; ++i) procesos[i].id = i;
+    for (int i = 0; i < cantidad_procesos; ++i) procesos[i].id = i;
 
     // Ordenar por tiempo de llegada
     std::sort(procesos.begin(), procesos.end(),
@@ -25,12 +25,12 @@ Metricas SJF(std::vector<Proceso>& procesos) {
     int tiempo_actual = 0;
     int index = 0;
 
-    std::vector<int> waiting(n), turnaround(n);
-    std::vector<double> throughput(n);
+    std::vector<int> waiting(cantidad_procesos), turnaround(cantidad_procesos);
+    std::vector<double> throughput(cantidad_procesos);
 
-    while (index < n || !cola.empty()) {
+    while (index < cantidad_procesos || !cola.empty()) {
         // Agregar procesos que hayan llegado hasta el tiempo actual
-        while (index < n && procesos[index].llegada <= tiempo_actual) {
+        while (index < cantidad_procesos && procesos[index].llegada <= tiempo_actual) {
             cola.push(procesos[index]);
             index++;
         }
@@ -55,7 +55,7 @@ Metricas SJF(std::vector<Proceso>& procesos) {
 
     // Guardar resultados en el struct Metricas
     double suma_waiting = 0, suma_turnaround = 0, suma_throughput = 0;
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < cantidad_procesos; ++i) {
         metricas.waiting_por_proceso.push_back(waiting[i]);
         metricas.turnaround_por_proceso.push_back(turnaround[i]);
         metricas.throughput_por_proceso.push_back(throughput[i]);
@@ -65,9 +65,9 @@ Metricas SJF(std::vector<Proceso>& procesos) {
         suma_throughput += throughput[i];
     }
 
-    metricas.waiting_promedio = suma_waiting / n;
-    metricas.turnaround_promedio = suma_turnaround / n;
-    metricas.throughput_promedio = suma_throughput / n;
+    metricas.waiting_promedio = suma_waiting / cantidad_procesos;
+    metricas.turnaround_promedio = suma_turnaround / cantidad_procesos;
+    metricas.throughput_promedio = suma_throughput / cantidad_procesos;
 
     return metricas;
 }
