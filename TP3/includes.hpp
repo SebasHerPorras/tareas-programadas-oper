@@ -8,4 +8,12 @@
 #include <string>
 #include <sstream> 
 
+
+struct Proceso {
+    int id;
+    int burst_time;
+    int prioridad;
+    int llegada;
+};
+
 #endif // INCLUDES_HPP
