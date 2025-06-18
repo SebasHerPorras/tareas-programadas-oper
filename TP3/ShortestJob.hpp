@@ -3,7 +3,7 @@
 
 #include "includes.hpp"
 
-int SJF(std::vector<Proceso>& procesos) {
+Metricas SJF(std::vector<Proceso>& procesos) {
 }
 
 #endif // SHORTEST_JOB_FIRST_HPP

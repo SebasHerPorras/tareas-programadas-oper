@@ -3,7 +3,7 @@
 
 #include "includes.hpp"
 
-int Priority(std::vector<Proceso>& procesos) {
+Metricas Priority(std::vector<Proceso>& procesos) {
 }
 
 #endif // PRIORITY_HPP

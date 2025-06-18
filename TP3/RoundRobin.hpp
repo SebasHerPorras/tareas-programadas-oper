@@ -3,7 +3,8 @@
 
 #include "includes.hpp"
 
-int RoundRobin(std::vector<Proceso>& procesos, int quantum) {
+
+Metricas RoundRobin(std::vector<Proceso>& procesos, int quantum) {
 }
 
 #endif // ROUNDROBIN_HPP

@@ -4,6 +4,6 @@
 
 #include "includes.hpp"
 
-int FCFS(std::vector<Proceso>& procesos);
+Metricas FCFS(std::vector<Proceso>& procesos);
 
 #endif // FCFS_HPP

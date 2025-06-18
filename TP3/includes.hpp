@@ -9,5 +9,6 @@
 #include <sstream> 
 
 #include "Proceso.hpp"
+#include "Metricas.hpp"
 
 #endif // INCLUDES_HPP
