@@ -7,3 +7,7 @@
 #include <fstream>
 #include <string>
 #include <sstream> 
+
+#include "Proceso.hpp"
+
+#endif // INCLUDES_HPP

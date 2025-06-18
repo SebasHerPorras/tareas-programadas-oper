@@ -1,10 +1,16 @@
-#include "FirstComeFirstServe.hpp"
-#include "ShortestJob.hpp"
-#include "RoundRobin.hpp"
-#include "Priority.hpp"
 #include "convertirEntrada.hpp"
 #include "Proceso.hpp"
 #include "includes.hpp"
+// #include "FirstComeFirstServe.hpp"
+// #include "ShortestJob.hpp"
+// #include "RoundRobin.hpp"
+// #include "Priority.hpp"
+
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
 
 int main(int argc, char* argv[]) {
   std::string archivo = (argc > 1) ? argv[1] : "prueba_1.txt";
@@ -48,23 +54,23 @@ int main(int argc, char* argv[]) {
                   << " Llegada: " << p.llegada << std::endl;
       }
 
-      // Ejecutar el algoritmo correspondiente
-      if (algoritmo == "FCFS" || algoritmo == "FirstComeFirstServed") {
-        int fcfs = FCFS(procesos);
-      } else if (algoritmo == "SJF" || algoritmo == "ShortestJobFirst") {
-        int sjf = SJF(procesos);
-      } else if (algoritmo == "RoundRobin") {
-        int rr = RoundRobin(procesos, 2);
-      } else if (algoritmo == "Priority") {
-        int prio = Priority(procesos);
-      } else if (algoritmo == "all") {
-        int fcfs = FCFS(procesos);
-        int sjf = SJF(procesos);
-        int rr = RoundRobin(procesos, 2);
-        int prio = Priority(procesos);
-      } else {
-        std::cerr << "Algoritmo no reconocido: " << algoritmo << std::endl;
-      }
+      // // Ejecutar el algoritmo correspondiente
+      // if (algoritmo == "FCFS" || algoritmo == "FirstComeFirstServed") {
+      //   int fcfs = FCFS(procesos);
+      // } else if (algoritmo == "SJF" || algoritmo == "ShortestJobFirst") {
+      //   int sjf = SJF(procesos);
+      // } else if (algoritmo == "RoundRobin") {
+      //   int rr = RoundRobin(procesos, 2);
+      // } else if (algoritmo == "Priority") {
+      //   int prio = Priority(procesos);
+      // } else if (algoritmo == "all") {
+      //   int fcfs = FCFS(procesos);
+      //   int sjf = SJF(procesos);
+      //   int rr = RoundRobin(procesos, 2);
+      //   int prio = Priority(procesos);
+      // } else {
+      //   std::cerr << "Algoritmo no reconocido: " << algoritmo << std::endl;
+      // }
     } catch (const std::exception& e) {
       std::cerr << "Error procesando la entrada: " << e.what() << std::endl;
     }
