@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include <sstream> 
+#include <queue>
 
 #include "Proceso.hpp"
 #include "Metricas.hpp"

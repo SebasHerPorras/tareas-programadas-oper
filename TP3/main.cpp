@@ -3,7 +3,7 @@
 #include "includes.hpp"
 #include "FirstComeFirstServe.hpp"
 #include "ShortestJob.hpp"
-// #include "RoundRobin.hpp"
+#include "RoundRobin.hpp"
 // #include "Priority.hpp"
 
 #include <fstream>
@@ -62,9 +62,10 @@ int main(int argc, char* argv[]) {
       } else if (algoritmo == "SJF" || algoritmo == "ShortestJobFirst") {
         Metricas sjf = SJF(procesos);
         metricas_por_algoritmo.push_back(sjf);
+      } else if (algoritmo == "RoundRobin") {
+        Metricas roundrobin = RoundRobin(procesos, 2);
+        metricas_por_algoritmo.push_back(roundrobin);
       }
-      // } else if (algoritmo == "RoundRobin") {
-      //   int rr = RoundRobin(procesos, 2);
       // } else if (algoritmo == "Priority") {
       //   int prio = Priority(procesos);
       // } else if (algoritmo == "all") {
